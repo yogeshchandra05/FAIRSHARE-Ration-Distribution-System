@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register | FairShare</title>
+  <link rel="stylesheet" href="{% static 'ration_app/css/user_registration.css' %}">
+</head>
+<body>
+  <header class="gov-header">
+    <div class="gov-banner">
+      <img src="{% static 'ration_app/images/ashoka.png' %}" alt="Ashoka Emblem">
+      <div>
+        <h1>FairShare Portal</h1>
+        <p>Empowering Citizens | Government of India</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="register-container">
+      <h2>Beneficiary Registration</h2>
+      <form method="POST">
+        {% csrf_token %}
+
+        <!-- Account Info -->
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter Username" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter Email" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter Password" required>
+
+        <!-- Personal Info -->
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter Full Name" required>
+
+        <label for="age">Age</label>
+        <input type="number" id="age" name="age" placeholder="Enter Age" required>
+
+        <label for="gender">Gender</label>
+        <select id="gender" name="gender" required>
+          <option value="">Select Gender</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </select>
+
+        <label for="phone">Phone Number</label>
+        <input type="text" id="phone" name="phone" placeholder="Enter Phone Number" required>
+
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address" placeholder="Enter Address" required>
+
+        <label for="city">City</label>
+        <input type="text" id="city" name="city" placeholder="Enter City" required>
+
+        <label for="state">State</label>
+        <input type="text" id="state" name="state" placeholder="Enter State" required>
+
+        <label for="pincode">Pincode</label>
+        <input type="text" id="pincode" name="pincode" placeholder="Enter Pincode" required>
+
+        <label for="income">Annual Income</label>
+        <input type="number" id="income" name="income" placeholder="Enter Income" required>
+
+        <button type="submit">Register</button>
+      </form>
+
+      <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+
+      {% if messages %}
+        {% for message in messages %}
+          <p class="error">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 FairShare | Government of India | All Rights Reserved</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,109 @@
+{% extends 'ration_app/base.html' %}
+{% load static %}
+
+{% block title %}FairShare | Shop Dashboard{% endblock %}
+
+{% block extra_css %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'ration_app/css/shop_dashboard.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+{% endblock %}
+
+{% block extra_js %}
+<script defer src="{% static 'ration_app/js/shop_dashboard.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<header class="gov-header">
+  <div class="gov-banner">
+    <img src="{% static 'ration_app/images/ashoka.png' %}" alt="Ashoka Emblem">
+    <div>
+      <h1>FairShare | Shop Dashboard</h1>
+      <p>Fair Price Shop Management | Government of India</p>
+    </div>
+  </div>
+
+  <nav class="top-nav">
+    <h2>Dashboard</h2>
+    <div class="nav-links">
+      <a href="#" id="summary-btn"><i class="fa fa-chart-line"></i> Summary</a>
+      <a href="{% url 'logout' %}" class="logout-btn"><i class="fa fa-sign-out-alt"></i> Logout</a>
+    </div>
+  </nav>
+</header>
+
+<div class="dashboard-container">
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar">
+    <div class="profile">
+      <img src="{% static 'ration_app/images/user.png' %}" alt="Shop Avatar" class="avatar">
+      <p class="role">Shopkeeper</p>
+    </div>
+
+    <div class="user-info">
+      <h4><i class="fa fa-store"></i> Shop Details</h4>
+    {% if shop %}
+        <ul class="info-list">
+        <li><i class="fa fa-store"></i> <span>Shop Name</span> <b>{{ shop.shop_name }}</b></li>
+        <li><i class="fa fa-id-badge"></i> <span>License No</span> <b>{{ shop.license_number }}</b></li>
+        <li><i class="fa fa-map-marker-alt"></i> <span>Location</span> <b>{{ shop.location }}</b></li>
+        <li><i class="fa fa-phone"></i> <span>Contact</span> <b>{{ shop.contact_number }}</b></li>
+        <li><i class="fa fa-envelope"></i> <span>Email</span> <b>{{ request.user.email }}</b></li>
+        </ul>
+    {% else %}
+        <p>No shop assigned to this account.</p>
+    {% endif %}
+
+
+      </ul>
+
+      {% if user.shopkeeper.linked_beneficiaries %}
+      <h4><i class="fa fa-users"></i> Linked Beneficiaries</h4>
+      <p>{{ user.shopkeeper.linked_beneficiaries.count }} Beneficiaries</p>
+      {% else %}
+      <h4><i class="fa fa-users"></i> Linked Beneficiaries</h4>
+      <p>No beneficiaries linked yet.</p>
+      {% endif %}
+    </div>
+  </aside>
+
+  <!-- MAIN SECTION -->
+  <main class="main-content">
+  {% if shop and shop.shopkeeper %}
+    <h2 class="welcome-title">Welcome, {{ shop.shopkeeper.user }}</h2>
+  {% else %}
+    <h2 class="welcome-title">Welcome, Shopkeeper</h2>
+  {% endif %}
+
+  
+    <div class="cards">
+      <div class="card" data-section="stock">
+        <i class="fa fa-boxes"></i>
+        <h3>Manage Stock</h3>
+      </div>
+      <div class="card" data-section="distribution">
+        <i class="fa fa-hand-holding-heart"></i>
+        <h3>Distribute Ration</h3>
+      </div>
+      <div class="card" data-section="beneficiaries">
+        <i class="fa fa-users"></i>
+        <h3>Linked Beneficiaries</h3>
+      </div>
+      <div class="card" data-section="reports">
+        <i class="fa fa-file-alt"></i>
+        <h3>Reports & Logs</h3>
+      </div>
+      <div class="card" data-section="requests">
+        <i class="fa fa-truck"></i>
+        <h3>Ration Requests</h3>
+      </div>
+      <div class="card" data-section="details">
+        <i class="fa fa-id-card"></i>
+        <h3>Shop Details</h3>
+      </div>
+    </div>
+
+    <div id="dynamic-section"></div>
+  </main>
+</div>
+{% endblock %}

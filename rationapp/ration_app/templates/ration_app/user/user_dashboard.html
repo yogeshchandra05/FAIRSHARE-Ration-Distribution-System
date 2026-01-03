@@ -1,0 +1,104 @@
+{% extends 'ration_app/base.html' %}
+{% load static %}
+
+{% block title %}FairShare |User Dashboard{% endblock %}
+
+{% block extra_css %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'ration_app/css/user_dashboard.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+{% endblock %}
+
+{% block extra_js %}
+<script defer src="{% static 'ration_app/js/user_dashboard.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<header class="gov-header">
+  <div class="gov-banner">
+    <img src="{% static 'ration_app/images/ashoka.png' %}" alt="Ashoka Emblem">
+    <div>
+      <h1>FairShare| User Dashboard</h1>
+      <p>Empowering Citizens | Government of India</p>
+    </div>
+  </div>
+
+  <nav class="top-nav">
+    <h2>Dashboard</h2>
+    <div class="nav-links">
+      <a href="#" id="summary-btn"><i class="fa fa-chart-line"></i> Summary</a>
+      <a href="{% url 'logout' %}" class="logout-btn"><i class="fa fa-sign-out-alt"></i> Logout</a>
+    </div>
+  </nav>
+</header>
+
+<div class="dashboard-container">
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar">
+    <div class="profile">
+      <img src="{% static 'ration_app/images/user.png' %}" alt="User Avatar" class="avatar">
+      <h3>{{ user.userauth.full_name }}</h3>
+      <p class="role">Beneficiary</p>
+    </div>
+
+    <div class="user-info">
+      <h4><i class="fa fa-id-card"></i> Personal Details</h4>
+      <ul class="info-list">
+        <li><i class="fa fa-user"></i> <span>Age</span> <b>{{ user.userauth.age }}</b></li>
+        <li><i class="fa fa-venus-mars"></i> <span>Gender</span> <b>{{ user.userauth.gender }}</b></li>
+        <li><i class="fa fa-phone"></i> <span>Phone</span> <b>{{ user.userauth.phone }}</b></li>
+        <li><i class="fa fa-envelope"></i> <span>Email</span> <b>{{ user.email }}</b></li>
+        <li><i class="fa fa-map-marker-alt"></i> <span>Address</span> 
+          <b>{{ user.userauth.address_line }}, {{ user.userauth.city }}</b></li>
+        <li><i class="fa fa-globe"></i> <span>State</span> <b>{{ user.userauth.state }}</b></li>
+        <li><i class="fa fa-wallet"></i> <span>Income</span> <b>₹{{ user.userauth.income }}</b></li>
+      </ul>
+
+      {% if user.userauth.rationcard %}
+      <h4><i class="fa fa-address-book"></i> Ration Card</h4>
+      <ul class="info-list">
+        <li><i class="fa fa-hashtag"></i> <span>Card No</span> <b>{{ user.userauth.rationcard.card_number }}</b></li>
+        <li><i class="fa fa-layer-group"></i> <span>Category</span> <b>{{ user.userauth.rationcard.category }}</b></li>
+      </ul>
+      {% else %}
+      <h4><i class="fa fa-address-book"></i> Ration Card</h4>
+      <p>Not issued yet</p>
+      {% endif %}
+    </div>
+  </aside>
+
+  <!-- MAIN SECTION -->
+  <main class="main-content">
+    <h2 class="welcome-title">Welcome, {{ user.userauth.full_name }}</h2>
+
+    <div class="cards">
+      <div class="card" data-section="buy">
+        <i class="fa fa-shopping-cart"></i>
+        <h3>Buy Ration</h3>
+      </div>
+      <div class="card" data-section="stock">
+        <i class="fa fa-boxes"></i>
+        <h3>Check Stocks</h3>
+      </div>
+      <div class="card" data-section="beneficiary">
+        <i class="fa fa-user-plus"></i>
+        <h3>Add Beneficiary</h3>
+      </div>
+      <div class="card" data-section="queries">
+        <i class="fa fa-comments"></i>
+        <h3>Queries & Feedback</h3>
+      </div>
+      <div class="card" data-section="qr">
+        <i class="fa fa-qrcode"></i>
+        <h3>Ration QR</h3>
+      </div>
+      <div class="card" data-section="history">
+        <i class="fa fa-history"></i>
+        <h3>Ration History</h3>
+      </div>
+    </div>
+
+    <div id="dynamic-section"></div>
+  </main>
+</div>
+{% endblock %}

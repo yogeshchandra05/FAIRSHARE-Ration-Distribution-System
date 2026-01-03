@@ -1,0 +1,78 @@
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block extra_head %}
+  <!-- PAGE-SPECIFIC CSS -->
+  <link rel="stylesheet" href="{% static 'ration_app/css/home.css' %}">
+  <script defer src="{% static 'ration_app/js/home.js' %}"></script>
+  <link rel="icon" href="{% static 'ration_app/images/ashoka.png' %}" type="image/png">
+{% endblock %}
+
+{% block content %}
+  <!-- === HEADER === -->
+  <header class="navbar home-navbar">
+    <div class="logo">
+      <img src="{% static 'ration_app/images/ashoka.png' %}" alt="Government of India" class="logo-img">
+      <span>FairShare</span>
+    </div>
+    <nav>
+      <a href="#" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="{% url 'admin:index' %}" target="_blank">Admin Panel</a>
+    </nav>
+  </header>
+
+  <!-- === HERO SECTION === -->
+  <section class="hero home-hero">
+    <div class="hero-content">
+      <h1>Welcome to FairShare</h1>
+      <p>Empowering citizens through transparent and efficient ration distribution.</p>
+      <div class="buttons">
+        <a href="{% url 'login' %}" class="btn login-btn"><i class="fa fa-sign-in-alt"></i> Login</a>
+        <a href="{% url 'register' %}" class="btn signup-btn"><i class="fa fa-user-plus"></i> Register</a>
+        <a href="{% url 'shop_login' %}" class="btn shop_login-btn"><i class="fa fa-user-plus"></i> Shop Login</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- === TRUSTED BY GOV SECTION === -->
+  <section class="trusted fade-up">
+    <img src="{% static 'ration_app/images/ashoka.png' %}" alt="Government of India" class="trust-logo">
+    <div class="trust-text">
+      <h2>Trusted by the Government of India</h2>
+      <p>
+        FairShare operates under the Digital India initiative to ensure fair, transparent,
+        and accessible ration distribution for every household.
+      </p>
+    </div>
+    <div class="certification">
+      <span class="ribbon">Certified Platform</span>
+    </div>
+  </section>
+
+  <!-- === ABOUT SECTION === -->
+  <section id="about" class="info fade-up">
+    <h2>About FairShare</h2>
+    <p>
+      FairShare is a centralized digital platform designed to streamline ration distribution
+      across citizens, ration shops, and government administrators.
+      It promotes transparency, efficiency, and accessibility across India’s public distribution system.
+    </p>
+  </section>
+
+  <!-- === CONTACT SECTION === -->
+  <section id="contact" class="info fade-up">
+    <h2>Contact Us</h2>
+    <p>
+      For assistance or queries, please reach out to your nearest Fair Price Shop
+      or contact the district Food & Civil Supplies Office.
+    </p>
+  </section>
+
+  <!-- === FOOTER === -->
+  <footer class="home-footer">
+    <p>© 2025 FairShare | Government of India | All Rights Reserved</p>
+  </footer>
+{% endblock %}

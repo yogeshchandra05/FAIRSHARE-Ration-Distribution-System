@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shopkeeper Login | FairShare</title>
+  <link rel="stylesheet" href="{% static 'ration_app/css/user_login.css' %}">
+</head>
+<body>
+  <!-- === HEADER === -->
+  <header class="gov-header">
+    <div class="gov-banner">
+      <img src="{% static 'ration_app/images/ashoka.png' %}" alt="Ashoka Emblem">
+      <div>
+        <h1>FairShare Portal</h1>
+        <p>Empowering Citizens | Government of India</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- === MAIN CONTENT === -->
+  <main>
+    <div class="login-container">
+      <h2>Fair Price Shop Login</h2>
+      <form method="POST">
+        {% csrf_token %}
+        
+        <label for="shop_name">Shop Name</label>
+        <input type="text" id="shop_name" name="shop_name" placeholder="Enter Shop Name" required>
+
+        <label for="license_number">License Number</label>
+        <input type="text" id="license_number" name="license_number" placeholder="Enter License Number" required>
+
+        <button type="submit">Login</button>
+      </form>
+
+      <p>Need help? Contact your district food supply officer.</p>
+      <p><a href="{% url 'home' %}">Back to Home</a></p>
+      {% if messages %}
+        {% for message in messages %}
+          <p class="error">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </main>
+
+  <!-- === FOOTER === -->
+  <footer>
+    <p>© 2025 FairShare | Government of India | All Rights Reserved</p>
+  </footer>
+</body>
+</html>
